@@ -7,44 +7,43 @@
     "default": {},
     "examples": [
         {
-            "name": "Adonai",
-            "minEmployees": 50,
-            "maxEmployees": 80
+            "title": "newJob",
+            "salary": 1000,
+            "equity": "0.2"
         }
     ],
     "required": [],
-    
     "properties": {
-        "name": {
-            "$id": "#/properties/name",
+        "title": {
+            "$id": "#/properties/title",
+            "type": "string",
+            "title": "The title schema",
+            "description": "An explanation about the purpose of this instance.",
             "default": "",
-            "description": "An explanation about the purpose of this instance.",
             "examples": [
-                "Adonai"
-            ],
-            "maxLength": 30,
-            "minLength": 1,
-            "title": "The name schema",
-            "type": "string"
-        },
-        "minEmployees": {
-            "$id": "#/properties/minEmployees",
-            "type": "integer",
-            "title": "The minEmployees schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": 0,
-            "examples": [
-                50
+                "newJob"
             ]
         },
-        "maxEmployees": {
-            "$id": "#/properties/maxEmployees",
+        "salary": {
+            "$id": "#/properties/salary",
             "type": "integer",
-            "title": "The maxEmployees schema",
+            "title": "The salary schema",
             "description": "An explanation about the purpose of this instance.",
             "default": 0,
+            "minimum": 0,
             "examples": [
-                80
+                1000
+            ]
+        },
+        "equity": {
+            "$id": "#/properties/equity",
+            "type": "string",
+            "title": "The equity schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "pattern": "0|(0?\\.[0-9]+",
+            "examples": [
+                "0.2"
             ]
         }
     },

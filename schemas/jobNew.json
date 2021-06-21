@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "title": "new",
+            "salary": 400,
+            "equity": "0.03",
+            "companyHandle": "c1"
+        }
+    ],
+    "required": [
+        "title",
+        "companyHandle"
+    ],
+    "properties": {
+        "title": {
+            "$id": "#/properties/title",
+            "type": "string",
+            "minLength":1,
+            "maxLength": 50,
+            "title": "The title schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "new"
+            ]
+        },
+        "salary": {
+            "$id": "#/properties/salary",
+            "type": "integer",
+            "title": "The salary schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "minimum": 0,
+            "examples": [
+                400
+            ]
+        },
+        "equity": {
+            "$id": "#/properties/equity",
+            "default": "",
+            "description": "An explanation about the purpose of this instance.",
+            "examples": [
+                "0.03"
+            ],
+            "title": "The equity schema",
+            "type": "string",
+            "pattern": "0|(0?\\.[0-9]+)"
+        },
+        "companyHandle": {
+            "$id": "#/properties/companyHandle",
+            "type": "string",
+            "title": "The companyHandle schema",
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "c1"
+            ]
+        }
+    },
+    "additionalProperties": false
+}

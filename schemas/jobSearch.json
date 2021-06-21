@@ -7,44 +7,41 @@
     "default": {},
     "examples": [
         {
-            "name": "Adonai",
-            "minEmployees": 50,
-            "maxEmployees": 80
+            "title": "job",
+            "minSalary": 300,
+            "hasEquity": true
         }
     ],
     "required": [],
-    
     "properties": {
-        "name": {
-            "$id": "#/properties/name",
+        "title": {
+            "$id": "#/properties/title",
+            "type": "string",
+            "title": "The title schema",
+            "description": "An explanation about the purpose of this instance.",
             "default": "",
-            "description": "An explanation about the purpose of this instance.",
             "examples": [
-                "Adonai"
-            ],
-            "maxLength": 30,
-            "minLength": 1,
-            "title": "The name schema",
-            "type": "string"
-        },
-        "minEmployees": {
-            "$id": "#/properties/minEmployees",
-            "type": "integer",
-            "title": "The minEmployees schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": 0,
-            "examples": [
-                50
+                "job"
             ]
         },
-        "maxEmployees": {
-            "$id": "#/properties/maxEmployees",
+        "minSalary": {
+            "$id": "#/properties/minSalary",
             "type": "integer",
-            "title": "The maxEmployees schema",
+            "title": "The minSalary schema",
             "description": "An explanation about the purpose of this instance.",
             "default": 0,
+            "minimum": 0,
             "examples": [
-                80
+                300
+            ]
+        },
+        "hasEquity": {
+            "$id": "#/properties/hasEquity",
+            "type": "boolean",
+            "title": "The hasEquity schema",
+            "description": "An explanation about the purpose of this instance.",
+            "examples": [
+                true
             ]
         }
     },
