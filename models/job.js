@@ -150,9 +150,11 @@ class Job {
            WHERE id = $1`,
         [id]);
 
-    if (!jobRes.rows[0]) throw new NotFoundError(`Job ${id} does not exist`);
+    const job = jobRes.rows[0];
 
-    const { title, salary, equity,companyHandle } = jobRes.rows[0];
+    if (!job) throw new NotFoundError(`Job ${id} does not exist`);
+
+    const { companyHandle } = job;
 
     const companyRes = await db.query(
             `SELECT handle,
@@ -165,7 +167,9 @@ class Job {
     
     const company = companyRes.rows[0];
 
-    const job = {id, title, salary, equity, company}
+   delete job.companyHandle;
+
+   job.company = company;
 
     return job;
   }

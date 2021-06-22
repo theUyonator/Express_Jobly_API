@@ -41,7 +41,7 @@
             "title": "The equity schema",
             "description": "An explanation about the purpose of this instance.",
             "default": "",
-            "pattern": "0|(0?\\.[0-9]+",
+            "pattern": "0|(0?\\.[0-9]+)",
             "examples": [
                 "0.2"
             ]

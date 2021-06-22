@@ -55,6 +55,7 @@ router.get("/", async function (req, res, next) {
   let q = req.query;
   // The query strings come as strings so we'll change min salary to a number 
   if(q.minSalary !== undefined) q.minSalary = +q.minSalary;
+  q.hasEquity = q.hasEquity === "true";
  
   try {
     const validator = jsonschema.validate(q, jobSearchSchema);
