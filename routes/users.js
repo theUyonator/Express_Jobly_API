@@ -118,5 +118,25 @@ router.delete("/:username", ensureCorrectUserOrAdmin, async function (req, res, 
   }
 });
 
+/** POST /users/:username/jobs/:id
+ *
+ * User applies to a job. 
+ *
+ * This returns the newly created user and an authentication token for them:
+ *  { applied: jobId }
+ *
+ * Authorization required: Admin and correct user
+ **/
+
+router.post("/:username/jobs/:id", ensureCorrectUserOrAdmin, async function (req, res, next) {
+  try {
+
+    await User.applyToJob(req.params.username, req.params.id);
+    return res.status(201).json({ applied: +req.params.id });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 
 module.exports = router;

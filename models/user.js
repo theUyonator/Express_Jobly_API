@@ -118,7 +118,7 @@ class User {
   /** Given a username, return data about user.
    *
    * Returns { username, first_name, last_name, is_admin, jobs }
-   *   where jobs is { id, title, company_handle, company_name, state }
+   *   where jobs is an array holding all jobids applied for [jobId, jobId...]
    *
    * Throws NotFoundError if user not found.
    **/
@@ -138,6 +138,13 @@ class User {
     const user = userRes.rows[0];
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
+
+    const jobRes = await db.query(
+              `SELECT job_id AS "jobId"
+               FROM applications 
+               WHERE username = $1`, [username]);
+               
+    user.jobs = jobRes.rows.map(j => j.jobId);
 
     return user;
   }
@@ -188,6 +195,37 @@ class User {
 
     delete user.password;
     return user;
+  }
+
+  /** Apply for a job
+   *
+   * This method accepts a username and a job id and 
+   * Returns jobId
+   *
+   * Throws NotFoundError if user or job id not found.
+   *
+   */
+
+  static async applyToJob(username, jobId) {
+
+    const userRes = await db.query(
+          `SELECT username 
+           FROM users
+           WHERE username = $1`, [username]);
+
+    if (!userRes.rows[0]) throw new NotFoundError(`No user: ${username}`);
+
+    const jobRes = await db.query(
+            `SELECT id
+             FROM jobs
+             WHERE id = $1`, [jobId]);
+    
+    if (!jobRes.rows[0]) throw new NotFoundError(`No Job: ${jobId}`);
+
+    await db.query(
+            `INSERT INTO applications
+            (username, job_id)
+            VALUES ($1, $2)`, [username, jobId]);
   }
 
   /** Delete given user from database; returns undefined. */
