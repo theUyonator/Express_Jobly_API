@@ -417,3 +417,50 @@ describe("DELETE /users/:username", function () {
     expect(resp.statusCode).toEqual(404);
   });
 });
+
+
+
+/************************************** POST /users/:username/jobs/:id */
+
+describe("POST /users/:username/jobs/:id", function () {
+  test("works for correctusers", async function () {
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${testJobIds[3]}`)
+        .set("authorization", `Bearer ${u1Token}`);
+    expect(resp.body).toEqual({ applied: testJobIds[3]});
+  });
+
+  test("works for admins", async function () {
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${testJobIds[3]}`)
+        .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.body).toEqual({ applied: testJobIds[3]});
+  });
+
+  test("unauth if not correctuser or admin", async function () {
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${testJobIds[3]}`)
+        .set("authorization", `Bearer ${u2Token}`);
+    expect(resp.statusCode).toBe(401);
+  });
+
+  test("unauth for anon", async function () {
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${testJobIds[3]}`);
+    expect(resp.statusCode).toBe(401);
+  });
+
+  test("not found for invalid user", async function () {
+    const resp = await request(app)
+        .post(`/users/nope/jobs/${testJobIds[3]}`)
+        .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toBe(404);
+  });
+
+  test("not found for invalid job id", async function () {
+    const resp = await request(app)
+        .post(`/users/nope/u1/889900`)
+        .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toBe(404);
+  });
+})

@@ -132,7 +132,7 @@ router.post("/:username/jobs/:id", ensureCorrectUserOrAdmin, async function (req
   try {
 
     await User.applyToJob(req.params.username, req.params.id);
-    return res.status(201).json({ applied: +req.params.id });
+    return res.json({ applied: +req.params.id });
   } catch (err) {
     return next(err);
   }
